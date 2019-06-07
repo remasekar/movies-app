@@ -1,8 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { call_movie_api } from '../src/action/moviesaction'
-import MovieTable from '../src/components/movietable'
-
+import { call_movie_api,call_movie_filter_api } from '../src/action/moviesaction'
+import MovieCardsLayout from '../src/components/moviecard'
 
 class App extends React.Component{
 
@@ -25,7 +24,18 @@ class App extends React.Component{
     this.setState(() => ({search })) 
     this.handleSearch(search)
 }
-componentWillMount()
+handleGenre=(e) => {
+  const param = e.target.value
+  this.props.dispatch(call_movie_filter_api(`filter={"genre":"${param}"}`))
+}
+handleYear=(e) => {
+  const yearParam = e.target.value
+  this.props.dispatch(call_movie_filter_api(`key=${yearParam}`))
+}
+handleClear=(e) => {
+  this.props.dispatch(call_movie_api())
+}
+componentDidMount()
 {
  this.props.dispatch(call_movie_api())
 }
@@ -34,45 +44,87 @@ componentWillMount()
   return (
   <div className="container">
     <div className="row">
-         <div className="col-md-10 offset-2">
-          <h1>Movie Search App</h1>
+         <div className="col-md-11 offset-2">
+          <h1>Movie Search App</h1> 
+          </div>
           <div className = "row mb-4">
-            <div className = "col-md-1">
-             <form>
-              <input type="text" placeholder = "search by movie name " value ={this.state.search} onChange={ this.handleChange} />
-               <br/>
-           </form>
+            <div className="col-md-2">
+                <span>
+                <input type="checkbox" className="custom-control-input" id="clearall" value="clear" onChange={this.handleClear}></input>
+                <label className="custom-control-label" htmlFor="clearall">Clear All</label>
+                </span>
+            </div>
+            <div className = "col-md-10">
+                  <span>
+                  <form>
+                    <input type="text" placeholder = "search by movie name " value ={this.state.search} onChange={ this.handleChange} />
+                    <br/>
+                  </form>
+                 </span>
            </div>
            </div>
            <div className="row mb-4">
              <div className="col-md-2">
                <span>
                   <h2>Genre </h2>
-                  <form>
-                  
-                  </form>
+                  <div className="custom control custom-checkbox">
+                  <input type="checkbox" className="custom-control-input" id="customCheck1" value="Drama" onChange={this.handleGenre}></input>
+                  <label className="custom-control-label" htmlFor="customCheck1">Drama</label>
+                  </div>
+                  <div className="custom control custom-checkbox">
+                  <input type="checkbox" className="custom-control-input" id="customCheck2" value="Romance" onChange={this.handleGenre}></input>
+                  <label className="custom-control-label" htmlFor="customCheck2">Romance</label>
+                  </div>
+                  <div className="custom control custom-checkbox">
+                  <input type="checkbox" className="custom-control-input" id="customCheck3" value="Comedy" onChange={this.handleGenre}></input>
+                  <label className="custom-control-label" htmlFor="customCheck3">Comedy</label>
+                  </div>
+                  <div className="custom control custom-checkbox">
+                  <input type="checkbox" className="custom-control-input" id="customCheck4" value="Sci-fi" onChange={this.handleGenre}></input>
+                  <label className="custom-control-label" htmlFor="customCheck4">Sci-fi</label>
+                  </div>
+                  <div className="custom control custom-checkbox">
+                  <input type="checkbox" className="custom-control-input" id="customCheck5" value="Fantasy" onChange={this.handleGenre}></input>
+                  <label className="custom-control-label" htmlFor="customCheck5">Fantasy</label>
+                  </div>
+                  <div className="custom control custom-checkbox">
+                  <input type="checkbox" className="custom-control-input" id="customCheck6" value="Action" onChange={this.handleGenre}></input>
+                  <label className="custom-control-label" htmlFor="customCheck6">Action</label>
+                  </div>
+                  <div className="custom control custom-checkbox">
+                  <input type="checkbox" className="custom-control-input" id="customCheck7" value="Thriller" onChange={this.handleGenre}></input>
+                  <label className="custom-control-label" htmlFor="customCheck7">Thriller</label>
+                  </div>                      
                </span>
                <h2>Year</h2>
-             </div>
+               <div className="custom control custom-checkbox">
+                  <input type="checkbox" className="custom-control-input" id="customCheck4" value="2019" onChange={this.handleYear}></input>
+                  <label className="custom-control-label" htmlFor="customCheck4">2019</label>
+                  </div>
+                  <div className="custom control custom-checkbox">
+                  <input type="checkbox" className="custom-control-input" id="customCheck5" value="2018" onChange={this.handleYear}></input>
+                  <label className="custom-control-label" htmlFor="customCheck5">2018</label>
+                  </div>
+                  <div className="custom control custom-checkbox">
+                  <input type="checkbox" className="custom-control-input" id="customCheck6" value="2017" onChange={this.handleYear}></input>
+                  <label className="custom-control-label" htmlFor="customCheck6">2017</label>
+                  </div> 
+              </div>
              <div className="col-md-10 ">
                <span>
-               { (this.props.movies.length !== 0 && 
-                 this.state.filteredMovies == 0 ) &&
-                <div>
-                  <h2>List - {this.props.movies.length }</h2>
-                  <MovieTable movies={this.props.movies} />
-                </div>
-               }
-               {this.state.filteredMovies !== 0 && 
+               {this.state.filteredMovies.length == 0 ? 
+               <div>
+                 <h2>Total Results - {this.props.movies.length}  </h2> 
+                  <MovieCardsLayout movies={this.props.movies} />
+               </div> :
                   <div>
-                  <h2>List - {this.state.filteredMovies.length}  </h2> 
-                  <MovieTable movies={this.state.filteredMovies}/>
+                  <h2>Total Results - {this.state.filteredMovies.length}  </h2> 
+                  <MovieCardsLayout movies={this.state.filteredMovies} />
                   </div>
                 }
                 </span>
               </div>
            </div>
-         </div>
     </div>
   </div>
   )
