@@ -7,7 +7,7 @@ const configStore = () =>
     const store = createStore((combineReducers({
                 movies: moviesReducer
     })), applyMiddleware(thunk))
-    return store 
+    return store    
 }
 
 export default configStore
