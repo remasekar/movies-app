@@ -98,16 +98,16 @@ componentDidMount()
                </span>
                <h2>Year</h2>
                <div className="custom control custom-checkbox">
-                  <input type="checkbox" className="custom-control-input" id="customCheck4" value="2019" onChange={this.handleYear}></input>
-                  <label className="custom-control-label" htmlFor="customCheck4">2019</label>
+                  <input type="checkbox" className="custom-control-input" id="customCheck8" value="2019" onChange={this.handleYear}></input>
+                  <label className="custom-control-label" htmlFor="customCheck8">2019</label>
                   </div>
                   <div className="custom control custom-checkbox">
-                  <input type="checkbox" className="custom-control-input" id="customCheck5" value="2018" onChange={this.handleYear}></input>
-                  <label className="custom-control-label" htmlFor="customCheck5">2018</label>
+                  <input type="checkbox" className="custom-control-input" id="customCheck9" value="2018" onChange={this.handleYear}></input>
+                  <label className="custom-control-label" htmlFor="customCheck9">2018</label>
                   </div>
                   <div className="custom control custom-checkbox">
-                  <input type="checkbox" className="custom-control-input" id="customCheck6" value="2017" onChange={this.handleYear}></input>
-                  <label className="custom-control-label" htmlFor="customCheck6">2017</label>
+                  <input type="checkbox" className="custom-control-input" id="customCheck10" value="2017" onChange={this.handleYear}></input>
+                  <label className="custom-control-label" htmlFor="customCheck10">2017</label>
                   </div> 
               </div>
              <div className="col-md-10 ">
